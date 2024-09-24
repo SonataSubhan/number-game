@@ -1,5 +1,4 @@
-const random = Math.floor(Math.random() * 100) + 1;
-console.log(random);
+let random = Math.floor(Math.random() * 100) + 1;
 
 const guesses = document.querySelector('.guesses');
 const lastResult = document.querySelector('.lastResult');
@@ -14,6 +13,9 @@ const restart = document.getElementById('restart');
 restart.style.display = "none";
 
 function checkGuess() {
+
+
+
     const userGuess = Number(guessField.value)
     if (guessCount === 1) {
         guesses.textContent = "Previous guesses: "
@@ -45,9 +47,15 @@ function checkGuess() {
     }
     guessCount++;
     guessField.value = "";
-    guessField.Focus();
-
+    guessField.focus();
 }
+
+guessField.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        checkGuess();
+    }
+})
 guessSubmit.addEventListener('click', checkGuess);
 function setGameOver() {
     guessField.disabled = true;
@@ -55,6 +63,8 @@ function setGameOver() {
     lowOrHi.textContent = "";
     guesses.textContent = "";
     restart.style.display = "flex";
+
+
 }
 restart.addEventListener('click', restartGame);
 function restartGame() {
@@ -63,6 +73,9 @@ function restartGame() {
     guessSubmit.disabled = false;
     guessCount = 1;
     restart.style.display = "none";
+    random = Math.floor(Math.random() * 100) + 1;
+
+
 
 
 }
